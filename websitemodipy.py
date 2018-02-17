@@ -4,22 +4,40 @@
 import sys
 import urllib2
 import hashlib
+import time
 
-def main(url):
+def hash_website(url):
+    '''Hashes the website with the given url and returns the hash'''
 
     page = urllib2.urlopen(url)
     content = page.read()
     page.close()
     # Reads the page.
 
-    initial_hash = hashlib.md5()
-    initial_hash.update(content)
-    initial_hash = initial_hash.digest()
+    hashed_website = hashlib.md5()
+    hashed_website.update(content)
+    hashed_website = hashed_website.digest()
     # Hashes the content.
+
+    return hashed_website
+
+def main(url):
+
+    initial_hash = hash_website(url)
 
     print(initial_hash)
     # Prints for debugging pruposes.
     # TODO remove
+
+    while True:
+        time.sleep(10)
+        # Checks for diffrences of the website every 10 seconds.
+        
+        new_hash = hash_website(url)
+
+        if new_hash != initial_hash:
+            break
+
 
 if __name__ == '__main__':
     main(url=sys.argv[1])
