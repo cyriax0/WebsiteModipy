@@ -26,17 +26,21 @@ def hash_website(url):
 def main(url):
 
     initial_hash = hash_website(url)
+    print "Watching "+url
 
     while True:
-        time.sleep(10)
+        #time.sleep(1)
         # Checks for diffrences of the website every 10 seconds.
         
         new_hash = hash_website(url)
 
         if new_hash != initial_hash:
             break
-        
-        print(str(datetime.datetime.now()) + ' nothing changed')
+        console_reset_code = ""
+        if os.name == 'posix':
+            console_reset_code = "\033[K\r"
+        print console_reset_code + str(datetime.datetime.now()) + ' nothing changed',
+        print " ",
 
     if os.name == 'nt':
         os.startfile('sound.mp3')
@@ -46,5 +50,10 @@ def main(url):
     # in any os except windows
 
 if __name__ == '__main__':
-    main(url=sys.argv[1])
+    if len(sys.argv) == 2:
+        main(url=sys.argv[1])
+    else:
+        print("Checks a website for updates periodically.\n\
+usage:\n\
+    websitemodipy.py URL")
     # Url will be passed as console argument. I.e.: 'https://www.foo.bar', 'file:///path/to/file/foo.html'
