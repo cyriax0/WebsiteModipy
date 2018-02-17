@@ -29,7 +29,7 @@ def main(url):
     print "Watching "+url
 
     while True:
-        #time.sleep(1)
+        time.sleep(10)
         # Checks for diffrences of the website every 10 seconds.
         
         new_hash = hash_website(url)
