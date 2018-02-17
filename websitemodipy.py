@@ -5,6 +5,7 @@ import sys
 import urllib2
 import hashlib
 import time
+import datetime
 
 def hash_website(url):
     '''Hashes the website with the given url and returns the hash'''
@@ -37,7 +38,8 @@ def main(url):
 
         if new_hash != initial_hash:
             break
-
+        
+        print(str(datetime.datetime.now()) + ' nothing changed')
 
 if __name__ == '__main__':
     main(url=sys.argv[1])
