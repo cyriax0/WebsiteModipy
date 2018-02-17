@@ -6,6 +6,7 @@ import urllib2
 import hashlib
 import time
 import datetime
+import os
 
 def hash_website(url):
     '''Hashes the website with the given url and returns the hash'''
@@ -26,10 +27,6 @@ def main(url):
 
     initial_hash = hash_website(url)
 
-    print(initial_hash)
-    # Prints for debugging pruposes.
-    # TODO remove
-
     while True:
         time.sleep(10)
         # Checks for diffrences of the website every 10 seconds.
@@ -40,6 +37,13 @@ def main(url):
             break
         
         print(str(datetime.datetime.now()) + ' nothing changed')
+
+    if os.name == 'nt':
+        os.startfile('sound.mp3')
+    else:
+        os.system('vlc sound.mp3')
+    # requieres vlc to be installed and in your path variable to work
+    # in any os except windows
 
 if __name__ == '__main__':
     main(url=sys.argv[1])
